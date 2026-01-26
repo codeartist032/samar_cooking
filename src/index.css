@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Amiri:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Brown & Beige Palette */
+  --color-primary: #3E2723;   /* Very Dark Brown */
+  --color-secondary: #5D4037; /* Dark Brown */
+  --color-accent: #8D6E63;    /* Light Brown */
+  
+  --color-beige-100: #FFF8E1; /* Lightest Beige */
+  --color-beige-200: #F5F5DC; /* Classic Beige */
+  --color-beige-300: #D7CCC8; /* Darker Beige */
+
+  --color-olive: #606C38;     /* Olive Green */
+  --color-orange: #DDA15E;    /* Light Orange/Gold for buttons */
+  
+  --color-text-dark: #2D1B15;
+  --color-text-light: #FFF8E1;
+
+  --font-tajawal: 'Tajawal', sans-serif;
+  --font-amiri: 'Amiri', serif;
+
+  --breakpoint-xs: 480px;
+}
+
+@layer base {
+  body {
+    font-family: "Tajawal", sans-serif;
+    background-color: var(--color-beige-100);
+    color: var(--color-text-dark);
+    direction: rtl;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Amiri", serif;
+  }
+}
+
+@utility container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+@utility btn-primary {
+  @apply bg-[#DDA15E] text-[#2D1B15] px-6 py-2 rounded-lg font-bold hover:bg-[#b0804b] transition-colors duration-300 shadow-md cursor-pointer;
+}
+
+@utility section-padding {
+  @apply py-16 sm:py-24;
+}
