@@ -4,6 +4,7 @@ const OrderForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [orderMessage, setOrderMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // مهم جداً: يمنع الانتقال لصفحة جديدة
@@ -45,10 +46,23 @@ const OrderForm = () => {
       // ملاحظة: مع no-cors مش هنقدر نقرأ الـ response، بس الإرسال هيحصل
       setSubmitted(true);
       setLoading(false);
+      setOrderMessage(message); // حفظ الرسالة لاستخدامها في الأزرار
       form.reset(); // يمسح النموذج بعد الإرسال
 
-      // إخفاء الرسالة بعد 15 ثانية (وقت كافي للضغط على زر واتساب)
-      setTimeout(() => setSubmitted(false), 15000);
+      // فتح واتساب للرقمين
+      const phone1 = "963958455194";
+      // const phone2 = "963965446090";
+      const encodedMessage = encodeURIComponent(message);
+      
+      const url1 = `https://wa.me/${phone1}?text=${encodedMessage}`;
+      // const url2 = `https://wa.me/${phone2}?text=${encodedMessage}`;
+
+      // محاولة فتح الرابطين
+      window.open(url1, '_blank');
+      setTimeout(() => window.open(url2, '_blank'), 500);
+
+      // إخفاء الرسالة بعد 30 ثانية (وقت كافي للضغط على زر واتساب يدوياً إذا لم يفتح)
+      setTimeout(() => setSubmitted(false), 30000);
     } catch (err) {
       setError(true);
       setLoading(false);
@@ -205,7 +219,27 @@ const OrderForm = () => {
                 <div>
                   <strong>تم إرسال طلبك بنجاح! 🎉</strong>
                   <br />
-                  شكراً لثقتك، هنتواصل معاكي قريب جداً عشان التأكيد والتفاصيل 🌸
+                  شكراً لثقتك، سيتم فتح واتساب لإرسال التفاصيل.
+                  <br />
+                  إذا لم يفتح التطبيق تلقائياً، يرجى الضغط أدناه:
+                  <div className="flex flex-col gap-2 mt-4 text-white font-bold w-full">
+                    <a 
+                      href={`https://wa.me/963958455194?text=${encodeURIComponent(orderMessage)}`}
+                      target="_blank"
+                      rel="noreferrer" 
+                      className="bg-[#25D366] py-2 px-4 rounded-lg hover:bg-[#128C7E] transition-colors"
+                    >
+                       إرسال للرقم الأول (958) 📲
+                    </a>
+                    {/* <a 
+                      href={`https://wa.me/963965446090?text=${encodeURIComponent(orderMessage)}`}
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="bg-[#25D366] py-2 px-4 rounded-lg hover:bg-[#128C7E] transition-colors"
+                    >
+                       إرسال للرقم الثاني (965) 📲
+                    </a> */}
+                  </div>
                 </div>
               </div>
             )}
